@@ -1,6 +1,8 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
+import userRouter from './routes/user.routes.js';
+import productRouter from './routes/product.routes.js';
 
 import connectDB from './mongodb/connect.js';
 
@@ -13,6 +15,9 @@ app.use(express.json({ limit: '50mb' }));
 app.get('/', (req, res) => {
   res.send({ message: 'Hello World!' });
 })
+
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/products', productRouter);
 
 const startServer = async () => {
   try {

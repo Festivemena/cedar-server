@@ -1,4 +1,4 @@
-import Product from '../mongodb/models/property.js';
+import Product from '../mongodb/models/product.js';
 import User from '../mongodb/models/user.js';
 
 import mongoose from 'mongoose';
