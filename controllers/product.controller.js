@@ -139,7 +139,7 @@ const deleteProduct = async (req, res) => {
     session.startTransaction();
     
     productToDelete.remove({session});
-    productToDelete.creator.allProperties.pull(productToDelete);
+    productToDelete.creator.allProducts.pull(productToDelete);
 
     await productToDelete.creator.save({session});
     await session.commitTransaction();

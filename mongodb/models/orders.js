@@ -10,7 +10,7 @@ const OrderSchema = new mongoose.Schema({
   userPhoneNo: { type: String, required: true},
   userPhotoUrl: { type: String, required: true},
   userAddress: { type: String, required: true},
-  // unitProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }],
+  cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }],
 });
 
 const orderModel = mongoose.model('Order', OrderSchema);
