@@ -40,9 +40,9 @@ const createUser = async (req, res) => {
 
 const getUserInfoByID = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { userName, userEmail } = req.params;
     
-    const user = await User.findOne({ _id: id});
+    const user = await User.findOne({ userName: userName, userEmail: userEmail});
     // .populate('allProperties');
     
     if(user) {
