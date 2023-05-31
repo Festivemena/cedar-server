@@ -1,4 +1,18 @@
 import User from '../mongodb/models/user.js';
+import mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
+import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const upload = multer({ dest: 'uploads/' });
 
 const getAllUsers = async (req, res) => {
   try {
@@ -14,22 +28,24 @@ const getAllUsers = async (req, res) => {
 //   userEmail: { type: String, required: true},
 //   userPhoneNo: { type: String, required: true},
 //   userPhotoUrl: { type: String, required: true},
+//   password: { type: String, required: true}
 //   userAddress: { type: String, required: true},
 
 const createUser = async (req, res) => {
   try {
-    const { userName, userEmail, userPhotoUrl, userAddress, userPhoneNo } = req.body;
+    const { userName, userEmail, userPhotoUrl, userAddress, userPhoneNo, password } = req.body;
   
     const userExists = await User.findOne({ userEmail });
   
     if(userExists) return res.status(200).json(userExists);
-  
+      const profilePicture = await cloudinary.uploader.upload(userPhotoUrl);
     const newUser = await User.create({
       userName,
       userEmail,
-      userPhotoUrl,
+      userPhotoUrl: profilePicture.secure_url,
       userAddress,
       userPhoneNo,
+      password
     })
   
     res.status(200).json(newUser);
@@ -40,9 +56,9 @@ const createUser = async (req, res) => {
 
 const getUserInfoByID = async (req, res) => {
   try {
-    const { userName, userEmail } = req.params;
+    const { userName, userEmail, password } = req.params;
     
-    const user = await User.findOne({ userName: userName, userEmail: userEmail});
+    const user = await User.findOne({ userName: userName, userEmail: userEmail, password: password});
     // .populate('allProperties');
     
     if(user) {

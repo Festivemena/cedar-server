@@ -64,7 +64,7 @@ const createProduct = async (req, res) => {
   
     // const user = await User.findOne({ email }).session(session);
   
-    // if(!user) throw new Error('User not found');
+   // if(!user) throw new Error('User not found');
   
     const photoUrl = await cloudinary.uploader.upload(photo);
     const subphotoUrl1 = await cloudinary.uploader.upload(subphoto1);

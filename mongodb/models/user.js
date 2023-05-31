@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
   userPhoneNo: { type: String},
   userPhotoUrl: { type: String},
   userAddress: { type: String},
+  password: { type: String},
   // allProperties: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Property' }],
 });
 
