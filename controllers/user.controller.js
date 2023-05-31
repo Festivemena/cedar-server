@@ -1,7 +1,6 @@
 import User from '../mongodb/models/user.js';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
-import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 
 dotenv.config();
@@ -11,8 +10,6 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
-const upload = multer({ dest: 'uploads/' });
 
 const getAllUsers = async (req, res) => {
   try {
